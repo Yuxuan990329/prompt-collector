@@ -1,0 +1,16 @@
+{
+  "manifest_version": 3,
+  "name": "Prompt Collector",
+  "version": "1.0.0",
+  "description": "Save prompts manually into your browser popup.",
+  "permissions": [
+    "storage"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_title": "Prompt Collector",
+    "default_popup": "popup.html"
+  }
+}

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Prompt Collector</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="pc-popup-body">
+    <div class="pc-popup">
+      <header class="pc-popup-header">
+        <div>
+          <p class="pc-eyebrow">Prompt Vault</p>
+          <h1>Prompt Collector</h1>
+          <p class="pc-header-copy">Capture prompts manually and keep them tidy.</p>
+        </div>
+        <span class="pc-count-badge" id="prompt-count">0</span>
+      </header>
+
+      <section class="pc-composer">
+        <label class="pc-field-label" for="platform-select">Platform</label>
+        <select id="platform-select" class="pc-select">
+          <option value="ChatGPT">ChatGPT</option>
+          <option value="Claude">Claude</option>
+          <option value="Gemini">Gemini</option>
+          <option value="Other">Other</option>
+        </select>
+
+        <label class="pc-field-label" for="prompt-input">Prompt</label>
+        <textarea
+          id="prompt-input"
+          class="pc-textarea"
+          placeholder="Paste your prompt here..."
+        ></textarea>
+
+        <button id="save-prompt-button" class="pc-primary-button" type="button">
+          Save Prompt
+        </button>
+        <p id="save-feedback" class="pc-feedback" aria-live="polite"></p>
+      </section>
+
+      <section class="pc-popup-list-section">
+        <div class="pc-section-heading">
+          <h2>Saved Prompts</h2>
+        </div>
+
+        <div class="pc-empty-state" id="empty-state">
+          <p>No prompts saved yet.</p>
+          <span>Your saved prompts will appear here right after you add one.</span>
+        </div>
+
+        <ul class="pc-prompt-list" id="prompt-list"></ul>
+      </section>
+    </div>
+
+    <script src="popup.js"></script>
+  </body>
+</html>
