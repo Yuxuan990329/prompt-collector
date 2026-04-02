@@ -10,7 +10,7 @@
 
 ## Current Version
 
-- `V1.4.3`
+- `V1.4.5`
 
 ## Product Goal
 
@@ -134,6 +134,16 @@ Each saved prompt record includes:
 ### V1.4.3
 
 - Refined the close handle position so it visually attaches to the sidebar edge
+
+### V1.4.4
+
+- Removed the extra reserved gap beside the sidebar
+- Kept the close handle attached to the sidebar edge while floating over page content
+
+### V1.4.5
+
+- Replaced solid dark utility buttons with a frosted-glass style
+- Unified the visual language of dark buttons across sidebar and workspace
 
 ## Current Input Fields
 

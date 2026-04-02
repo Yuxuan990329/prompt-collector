@@ -54,13 +54,18 @@ html.pc-sidebar-open body {
   height: 30px;
   border: 0;
   border-radius: 0 8px 8px 0;
-  background: #1f2937;
+  background: linear-gradient(180deg, rgba(39, 47, 62, 0.58), rgba(25, 31, 44, 0.44));
   color: #fff;
   font-size: 12px;
   font-weight: 700;
   cursor: pointer;
   transform: translateY(-50%);
-  box-shadow: 6px 0 14px rgba(31, 41, 55, 0.2);
+  backdrop-filter: blur(14px) saturate(135%);
+  -webkit-backdrop-filter: blur(14px) saturate(135%);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  box-shadow:
+    0 8px 18px rgba(31, 41, 55, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.16);
 }
 
 #pc-sidebar-host .pc-shell {
@@ -235,18 +240,30 @@ html.pc-sidebar-open body {
 #pc-sidebar-host .pc-icon-button {
   width: 34px;
   height: 34px;
-  background: #1f2937;
+  background: linear-gradient(180deg, rgba(39, 47, 62, 0.68), rgba(25, 31, 44, 0.5));
   color: #fff;
   font-size: 20px;
   line-height: 1;
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  box-shadow:
+    0 10px 24px rgba(31, 41, 55, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18);
 }
 
 #pc-sidebar-host .pc-head-button {
   padding: 8px 12px;
-  background: #1f2937;
+  background: linear-gradient(180deg, rgba(39, 47, 62, 0.68), rgba(25, 31, 44, 0.5));
   color: #fff;
   font-size: 12px;
   font-weight: 700;
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  box-shadow:
+    0 10px 24px rgba(31, 41, 55, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18);
 }
 
 #pc-sidebar-host .pc-back-button {
@@ -283,8 +300,14 @@ html.pc-sidebar-open body {
   min-width: 32px;
   justify-content: center;
   padding: 6px 10px;
-  background: #1f2937;
+  background: linear-gradient(180deg, rgba(39, 47, 62, 0.68), rgba(25, 31, 44, 0.5));
   color: #fff;
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  box-shadow:
+    0 10px 24px rgba(31, 41, 55, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18);
 }
 
 #pc-sidebar-host .pc-tag {
@@ -404,12 +427,18 @@ html.pc-sidebar-open body {
   border: 0;
   border-radius: 14px;
   padding: 10px 14px;
-  background: #1f2937;
+  background: linear-gradient(180deg, rgba(39, 47, 62, 0.68), rgba(25, 31, 44, 0.5));
   color: #fff;
   font: inherit;
   font-size: 13px;
   font-weight: 700;
   cursor: pointer;
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  box-shadow:
+    0 10px 24px rgba(31, 41, 55, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18);
 }
 
 .pc-workspace-eyebrow {
@@ -575,12 +604,18 @@ html.pc-sidebar-open body {
   border: 0;
   border-radius: 12px;
   padding: 6px 10px;
-  background: #1f2937;
+  background: linear-gradient(180deg, rgba(39, 47, 62, 0.68), rgba(25, 31, 44, 0.5));
   color: #fff;
   font: inherit;
   font-size: 12px;
   font-weight: 700;
   cursor: pointer;
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  box-shadow:
+    0 10px 24px rgba(31, 41, 55, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18);
 }
 
 .pc-workspace-content {
