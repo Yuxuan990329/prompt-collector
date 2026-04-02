@@ -15,7 +15,7 @@ html.pc-sidebar-open body {
   bottom: 0;
   width: 0;
   z-index: 2147483647;
-  overflow: hidden;
+  overflow: visible;
 }
 
 #pc-sidebar-host * {
@@ -32,6 +32,7 @@ html.pc-sidebar-open body {
   box-shadow: 18px 0 40px rgba(60, 40, 16, 0.14);
   color: #1d2735;
   font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+  overflow: visible;
 }
 
 #pc-sidebar-host .pc-resizer {
@@ -42,6 +43,24 @@ html.pc-sidebar-open body {
   height: 100%;
   cursor: ew-resize;
   background: linear-gradient(180deg, rgba(200, 106, 59, 0.12), rgba(200, 106, 59, 0));
+}
+
+#pc-sidebar-host .pc-sidebar-toggle {
+  position: absolute;
+  top: 50%;
+  right: -7px;
+  z-index: 2;
+  width: 14px;
+  height: 30px;
+  border: 0;
+  border-radius: 0 8px 8px 0;
+  background: #1f2937;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transform: translateY(-50%);
+  box-shadow: 6px 0 14px rgba(31, 41, 55, 0.2);
 }
 
 #pc-sidebar-host .pc-shell {
@@ -479,7 +498,8 @@ html.pc-sidebar-open body {
 
 .pc-workspace-item-top,
 .pc-workspace-card-head,
-.pc-workspace-tags {
+.pc-workspace-tags,
+.pc-workspace-card-tools {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -544,6 +564,23 @@ html.pc-sidebar-open body {
   margin-top: 14px;
   font-size: 22px;
   line-height: 1.25;
+}
+
+.pc-workspace-font-tools {
+  display: flex;
+  gap: 8px;
+}
+
+.pc-workspace-font-button {
+  border: 0;
+  border-radius: 12px;
+  padding: 6px 10px;
+  background: #1f2937;
+  color: #fff;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
 }
 
 .pc-workspace-content {

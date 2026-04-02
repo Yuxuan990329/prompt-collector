@@ -10,7 +10,7 @@
 
 ## Current Version
 
-- `V1.3.2`
+- `V1.4.3`
 
 ## Product Goal
 
@@ -115,6 +115,25 @@ Each saved prompt record includes:
 ### V1.3.2
 
 - Fixed `← Back` so it returns to the source page instead of only closing the workspace tab
+
+### V1.4.0
+
+- Added a collapse/expand handle for the main sidebar
+- Added `A-` and `A+` font-size controls in the workspace compare panels
+
+### V1.4.1
+
+- Changed the main sidebar handle behavior to a direct close action
+- Made the handle more visually prominent outside the sidebar edge
+
+### V1.4.2
+
+- Aligned the main sidebar flush with page content
+- Kept the close handle visually protruding without adding extra blank space
+
+### V1.4.3
+
+- Refined the close handle position so it visually attaches to the sidebar edge
 
 ## Current Input Fields
 

@@ -5,7 +5,11 @@ const workspaceState = {
   prompts: [],
   search: "",
   category: "All",
-  selectedIds: []
+  selectedIds: [],
+  fontSizes: {
+    a: 16,
+    b: 16
+  }
 };
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -107,6 +111,8 @@ function renderWorkspaceList() {
 
 function renderComparePanel(containerId, prompt, versionLabel) {
   const container = document.getElementById(containerId);
+  const fontKey = containerId === "workspace-compare-a" ? "a" : "b";
+  const fontSize = workspaceState.fontSizes[fontKey];
 
   if (!prompt) {
     container.innerHTML = `
@@ -121,7 +127,13 @@ function renderComparePanel(containerId, prompt, versionLabel) {
   container.innerHTML = `
     <article class="pc-workspace-card">
       <div class="pc-workspace-card-head">
-        <span class="pc-workspace-version">${versionLabel}</span>
+        <div class="pc-workspace-card-tools">
+          <span class="pc-workspace-version">${versionLabel}</span>
+          <div class="pc-workspace-font-tools">
+            <button class="pc-workspace-font-button" data-font-action="decrease" data-font-key="${fontKey}" type="button">A-</button>
+            <button class="pc-workspace-font-button" data-font-action="increase" data-font-key="${fontKey}" type="button">A+</button>
+          </div>
+        </div>
         <span class="pc-workspace-time">${formatTimestamp(prompt.savedAt)}</span>
       </div>
       <h2>${escapeHtml(prompt.name || "Untitled Prompt")}</h2>
@@ -129,9 +141,15 @@ function renderComparePanel(containerId, prompt, versionLabel) {
         <span class="pc-workspace-tag">${escapeHtml(prompt.platform || "Other")}</span>
         <span class="pc-workspace-tag pc-workspace-tag-muted">${escapeHtml(prompt.category || "Other")}</span>
       </div>
-      <pre class="pc-workspace-content">${escapeHtml(prompt.content || "")}</pre>
+      <pre class="pc-workspace-content" style="font-size: ${fontSize}px;">${escapeHtml(prompt.content || "")}</pre>
     </article>
   `;
+
+  container.querySelectorAll("[data-font-action]").forEach((button) => {
+    button.addEventListener("click", () => {
+      updateFontSize(button.dataset.fontKey, button.dataset.fontAction);
+    });
+  });
 }
 
 function updateWorkspaceSelection(promptId) {
@@ -179,6 +197,17 @@ function getFilteredPrompts() {
 function getSelectedPrompt(index) {
   const selectedId = workspaceState.selectedIds[index];
   return workspaceState.prompts.find((prompt) => prompt.id === selectedId);
+}
+
+function updateFontSize(fontKey, action) {
+  const currentSize = workspaceState.fontSizes[fontKey] || 16;
+  const nextSize =
+    action === "increase"
+      ? Math.min(24, currentSize + 1)
+      : Math.max(12, currentSize - 1);
+
+  workspaceState.fontSizes[fontKey] = nextSize;
+  renderWorkspace();
 }
 
 function formatTimestamp(timestamp) {

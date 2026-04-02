@@ -3,6 +3,7 @@ const WIDTH_KEY = "sidebarWidth";
 const DEFAULT_WIDTH = 420;
 const MIN_WIDTH = 320;
 const MAX_WIDTH = 1400;
+const HANDLE_OVERHANG = 24;
 const CATEGORY_OPTIONS = [
   "Writing",
   "Analysis",
@@ -101,6 +102,9 @@ function render() {
   host.innerHTML = `
     <div class="pc-sidebar">
       <div class="pc-resizer" id="pc-resizer" title="Drag to resize"></div>
+      <button class="pc-sidebar-toggle" id="pc-sidebar-toggle" type="button">
+        &rsaquo;
+      </button>
       <div class="pc-shell">
         <header class="pc-header">
           <div>
@@ -272,6 +276,11 @@ function renderCompareView() {
 }
 
 function bindEvents() {
+  host.querySelector("#pc-sidebar-toggle")?.addEventListener("click", () => {
+    state.isOpen = false;
+    render();
+  });
+
   host.querySelector("#pc-close-button")?.addEventListener("click", () => {
     state.isOpen = false;
     render();
@@ -433,7 +442,8 @@ function startResize(event) {
 
 function applySidebarWidth() {
   const width = state.isOpen ? `${state.width}px` : "0px";
-  document.documentElement.style.setProperty("--pc-sidebar-width", width);
+  const reservedWidth = state.isOpen ? `${Math.max(0, state.width - HANDLE_OVERHANG)}px` : "0px";
+  document.documentElement.style.setProperty("--pc-sidebar-width", reservedWidth);
 
   if (host) {
     host.style.width = width;
