@@ -3,6 +3,14 @@ const WIDTH_KEY = "sidebarWidth";
 const DEFAULT_WIDTH = 420;
 const MIN_WIDTH = 320;
 const MAX_WIDTH = 1400;
+const CATEGORY_OPTIONS = [
+  "Writing",
+  "Analysis",
+  "Coding",
+  "Research",
+  "Prompt Engineering",
+  "Other"
+];
 
 const state = {
   isOpen: false,
@@ -138,8 +146,10 @@ function renderListView() {
           </label>
           <div class="pc-meta">
             <span class="pc-tag">${escapeHtml(prompt.platform)}</span>
+            <span class="pc-tag pc-tag-muted">${escapeHtml(prompt.category || "Other")}</span>
             <span class="pc-time">${formatTimestamp(prompt.savedAt)}</span>
           </div>
+          <h4 class="pc-title">${escapeHtml(prompt.name || "Untitled Prompt")}</h4>
           <p class="pc-content">${escapeHtml(createPreview(prompt.content))}</p>
           <div class="pc-actions">
             <button class="pc-secondary-button" data-role="copy" data-id="${prompt.id}" type="button">Copy</button>
@@ -152,12 +162,48 @@ function renderListView() {
 
   return `
     <section class="pc-panel pc-form-panel">
-      <label class="pc-label" for="pc-platform">Platform</label>
-      <select id="pc-platform" class="pc-select">
-        ${["ChatGPT", "Claude", "Gemini", "Other"]
-          .map((item) => `<option value="${item}">${item}</option>`)
-          .join("")}
-      </select>
+      <div class="pc-form-grid">
+        <div>
+          <label class="pc-label" for="pc-platform">Platform</label>
+          <select id="pc-platform" class="pc-select">
+            ${["ChatGPT", "Claude", "Gemini", "Other"]
+              .map((item) => `<option value="${item}">${item}</option>`)
+              .join("")}
+          </select>
+        </div>
+
+        <div>
+          <label class="pc-label" for="pc-name">Prompt Name</label>
+          <input id="pc-name" class="pc-input" type="text" placeholder="e.g. Travel Planner" />
+        </div>
+
+        <div>
+          <label class="pc-label" for="pc-category">Category</label>
+          <select id="pc-category" class="pc-select">
+            ${CATEGORY_OPTIONS.map((item) => `<option value="${item}">${item}</option>`).join("")}
+          </select>
+        </div>
+      </div>
+
+      <div id="pc-custom-platform-wrap" class="pc-custom-field" hidden>
+        <label class="pc-label" for="pc-custom-platform">Custom Platform</label>
+        <input
+          id="pc-custom-platform"
+          class="pc-input"
+          type="text"
+          placeholder="Type your platform here"
+        />
+      </div>
+
+      <div id="pc-custom-category-wrap" class="pc-custom-field" hidden>
+        <label class="pc-label" for="pc-custom-category">Custom Category</label>
+        <input
+          id="pc-custom-category"
+          class="pc-input"
+          type="text"
+          placeholder="Type your category here"
+        />
+      </div>
 
       <label class="pc-label" for="pc-input">Prompt</label>
       <textarea id="pc-input" class="pc-textarea" placeholder="Paste your prompt here..."></textarea>
@@ -207,6 +253,8 @@ function renderCompareView() {
                   <span class="pc-version">${title}</span>
                   <span class="pc-tag">${escapeHtml(prompt.platform)}</span>
                 </div>
+                <h4 class="pc-title">${escapeHtml(prompt.name || "Untitled Prompt")}</h4>
+                <p class="pc-compare-category">${escapeHtml(prompt.category || "Other")}</p>
                 <p class="pc-time pc-time-block">${formatTimestamp(prompt.savedAt)}</p>
                 <pre class="pc-compare-content">${escapeHtml(prompt.content)}</pre>
               </article>
@@ -225,6 +273,8 @@ function bindEvents() {
   });
 
   host.querySelector("#pc-save-button")?.addEventListener("click", savePrompt);
+  host.querySelector("#pc-platform")?.addEventListener("change", toggleCustomPlatform);
+  host.querySelector("#pc-category")?.addEventListener("change", toggleCustomCategory);
   host.querySelector("#pc-compare-button")?.addEventListener("click", () => {
     state.view = "compare";
     render();
@@ -267,12 +317,45 @@ function bindEvents() {
   });
 
   host.querySelector("#pc-resizer")?.addEventListener("mousedown", startResize);
+  toggleCustomPlatform();
+  toggleCustomCategory();
 }
 
 async function savePrompt() {
   const textarea = host.querySelector("#pc-input");
   const platform = host.querySelector("#pc-platform");
+  const customPlatformInput = host.querySelector("#pc-custom-platform");
+  const nameInput = host.querySelector("#pc-name");
+  const categorySelect = host.querySelector("#pc-category");
+  const customCategoryInput = host.querySelector("#pc-custom-category");
   const content = textarea.value.trim();
+  const platformValue =
+    platform.value === "Other"
+      ? customPlatformInput.value.trim()
+      : platform.value;
+  const name = nameInput.value.trim();
+  const category =
+    categorySelect.value === "Other"
+      ? customCategoryInput.value.trim()
+      : categorySelect.value;
+
+  if (!platformValue) {
+    setFeedback("Enter a platform before saving.", true);
+    customPlatformInput.focus();
+    return;
+  }
+
+  if (!name) {
+    setFeedback("Enter a prompt name before saving.", true);
+    nameInput.focus();
+    return;
+  }
+
+  if (!category) {
+    setFeedback("Enter a category before saving.", true);
+    customCategoryInput.focus();
+    return;
+  }
 
   if (!content) {
     setFeedback("Enter a prompt before saving.", true);
@@ -284,16 +367,25 @@ async function savePrompt() {
     ...state.prompts,
     {
       id: crypto.randomUUID(),
+      name,
+      category,
       content,
-      platform: platform.value,
+      platform: platformValue,
       savedAt: new Date().toISOString()
     }
   ];
 
   await chrome.storage.local.set({ [STORAGE_KEY]: nextPrompts });
+  platform.value = "ChatGPT";
+  customPlatformInput.value = "";
+  nameInput.value = "";
+  categorySelect.value = CATEGORY_OPTIONS[0];
+  customCategoryInput.value = "";
   textarea.value = "";
   setFeedback("Prompt saved.");
-  textarea.focus();
+  toggleCustomPlatform();
+  toggleCustomCategory();
+  nameInput.focus();
 }
 
 function updateSelection(promptId, checked) {
@@ -353,6 +445,34 @@ function findPrompt(id) {
 
 function createPreview(content) {
   return content.length > 50 ? `${content.slice(0, 50)}...` : content;
+}
+
+function toggleCustomCategory() {
+  const categorySelect = host?.querySelector("#pc-category");
+  const customCategoryWrap = host?.querySelector("#pc-custom-category-wrap");
+  const customCategoryInput = host?.querySelector("#pc-custom-category");
+
+  if (!categorySelect || !customCategoryWrap || !customCategoryInput) {
+    return;
+  }
+
+  const isOther = categorySelect.value === "Other";
+  customCategoryWrap.hidden = !isOther;
+  customCategoryInput.required = isOther;
+}
+
+function toggleCustomPlatform() {
+  const platformSelect = host?.querySelector("#pc-platform");
+  const customPlatformWrap = host?.querySelector("#pc-custom-platform-wrap");
+  const customPlatformInput = host?.querySelector("#pc-custom-platform");
+
+  if (!platformSelect || !customPlatformWrap || !customPlatformInput) {
+    return;
+  }
+
+  const isOther = platformSelect.value === "Other";
+  customPlatformWrap.hidden = !isOther;
+  customPlatformInput.required = isOther;
 }
 
 function setFeedback(message, isError = false) {

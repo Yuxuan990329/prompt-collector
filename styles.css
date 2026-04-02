@@ -95,6 +95,16 @@ html.pc-sidebar-open body {
   padding: 14px;
 }
 
+#pc-sidebar-host .pc-form-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+#pc-sidebar-host .pc-custom-field {
+  margin-bottom: 12px;
+}
+
 #pc-sidebar-host .pc-list-section,
 #pc-sidebar-host .pc-compare-view {
   display: flex;
@@ -128,6 +138,7 @@ html.pc-sidebar-open body {
 }
 
 #pc-sidebar-host .pc-select,
+#pc-sidebar-host .pc-input,
 #pc-sidebar-host .pc-textarea,
 #pc-sidebar-host .pc-primary-button,
 #pc-sidebar-host .pc-secondary-button,
@@ -138,6 +149,7 @@ html.pc-sidebar-open body {
 }
 
 #pc-sidebar-host .pc-select,
+#pc-sidebar-host .pc-input,
 #pc-sidebar-host .pc-textarea {
   width: 100%;
   border: 1px solid #d7cab8;
@@ -147,6 +159,11 @@ html.pc-sidebar-open body {
 }
 
 #pc-sidebar-host .pc-select {
+  margin-bottom: 12px;
+  padding: 10px 12px;
+}
+
+#pc-sidebar-host .pc-input {
   margin-bottom: 12px;
   padding: 10px 12px;
 }
@@ -247,6 +264,11 @@ html.pc-sidebar-open body {
   color: #8a3f18;
 }
 
+#pc-sidebar-host .pc-tag-muted {
+  background: #f6efe7;
+  color: #8c6b54;
+}
+
 #pc-sidebar-host .pc-version {
   padding: 4px 10px;
   background: #edf3ff;
@@ -268,6 +290,20 @@ html.pc-sidebar-open body {
   line-height: 1.55;
   white-space: pre-wrap;
   word-break: break-word;
+}
+
+#pc-sidebar-host .pc-title {
+  margin: 10px 0 0;
+  font-size: 16px;
+  line-height: 1.35;
+  color: #1d2735;
+}
+
+#pc-sidebar-host .pc-compare-category {
+  margin: 6px 0 0;
+  color: #8c6b54;
+  font-size: 12px;
+  font-weight: 700;
 }
 
 #pc-sidebar-host .pc-actions {

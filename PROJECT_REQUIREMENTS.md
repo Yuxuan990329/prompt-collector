@@ -10,7 +10,7 @@
 
 ## Current Version
 
-- `V1.1.1`
+- `V1.2.1`
 
 ## Product Goal
 
@@ -47,6 +47,8 @@ The current main interaction is a left sidebar injected into the active webpage.
 Each saved prompt record includes:
 
 - `id`
+- `name`
+- `category`
 - `content`
 - `platform`
 - `savedAt`
@@ -81,6 +83,39 @@ Each saved prompt record includes:
 
 - Increased sidebar maximum width to `1400px`
 - Kept the implementation simple by only expanding the resize upper bound
+
+### V1.2.0
+
+- Added `Prompt Name` as a required field when saving prompts
+- Added `Category` with preset options and custom input support
+- Display prompt name in the list view as the card title
+- Display prompt name and category in compare view
+
+### V1.2.1
+
+- Added custom input support for `Platform` when `Other` is selected
+
+## Current Input Fields
+
+The save form now contains:
+
+- `Platform`
+- `Prompt Name`
+- `Category`
+- `Prompt`
+
+## Category Options
+
+Default category options:
+
+- `Writing`
+- `Analysis`
+- `Coding`
+- `Research`
+- `Prompt Engineering`
+- `Other`
+
+If `Other` is selected, the user can type a custom category value. Chinese input is supported.
 
 ## Open Decisions
 
