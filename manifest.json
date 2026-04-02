@@ -1,16 +1,34 @@
 {
   "manifest_version": 3,
   "name": "Prompt Collector",
-  "version": "1.0.0",
-  "description": "Save prompts manually into your browser popup.",
+  "version": "1.1.0",
+  "description": "Open a resizable prompt sidebar on any page.",
   "permissions": [
     "storage"
+  ],
+  "host_permissions": [
+    "http://*/*",
+    "https://*/*"
   ],
   "background": {
     "service_worker": "background.js"
   },
   "action": {
-    "default_title": "Prompt Collector",
-    "default_popup": "popup.html"
-  }
+    "default_title": "Toggle Prompt Collector"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "http://*/*",
+        "https://*/*"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "css": [
+        "styles.css"
+      ],
+      "run_at": "document_idle"
+    }
+  ]
 }

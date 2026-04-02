@@ -1,12 +1,11 @@
-chrome.runtime.onInstalled.addListener(() => {
-  console.log("Prompt Collector installed.");
-});
-
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  if (message?.type === "PROMPT_SAVED") {
-    console.log("Prompt saved from tab:", sender.tab?.id, message.payload);
-    sendResponse({ ok: true });
+chrome.action.onClicked.addListener(async (tab) => {
+  if (!tab.id) {
+    return;
   }
 
-  return true;
+  try {
+    await chrome.tabs.sendMessage(tab.id, { type: "PC_TOGGLE_SIDEBAR" });
+  } catch (error) {
+    console.warn("Prompt Collector toggle failed:", error);
+  }
 });
