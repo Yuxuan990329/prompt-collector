@@ -23,8 +23,8 @@ body {
 }
 
 .pc-popup-body {
-  width: 420px;
-  min-height: 560px;
+  width: 460px;
+  min-height: 620px;
   background:
     radial-gradient(circle at top right, rgba(200, 106, 59, 0.16), transparent 32%),
     radial-gradient(circle at bottom left, rgba(92, 138, 117, 0.16), transparent 28%),
@@ -36,18 +36,32 @@ body {
   padding: 18px;
 }
 
-.pc-popup-header {
+.pc-popup-header,
+.pc-compare-header,
+.pc-prompt-meta,
+.pc-compare-card-header {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
   gap: 12px;
+}
+
+.pc-popup-header {
   margin-bottom: 18px;
 }
 
-.pc-popup-header h1 {
+.pc-popup-header h1,
+.pc-compare-header h2 {
   margin: 4px 0 6px;
-  font-size: 25px;
   line-height: 1.1;
+}
+
+.pc-popup-header h1 {
+  font-size: 25px;
+}
+
+.pc-compare-header h2 {
+  font-size: 22px;
 }
 
 .pc-eyebrow {
@@ -59,12 +73,16 @@ body {
   color: var(--pc-accent);
 }
 
-.pc-header-copy {
+.pc-header-copy,
+.pc-section-copy {
   margin: 0;
-  max-width: 260px;
   color: var(--pc-text-muted);
   font-size: 13px;
   line-height: 1.45;
+}
+
+.pc-header-copy {
+  max-width: 280px;
 }
 
 .pc-count-badge {
@@ -81,7 +99,9 @@ body {
 
 .pc-composer,
 .pc-prompt-item,
-.pc-empty-state {
+.pc-empty-state,
+.pc-compare-card,
+.pc-compare-bar {
   border: 1px solid var(--pc-border);
   border-radius: 20px;
   background: var(--pc-surface);
@@ -108,7 +128,8 @@ body {
 .pc-textarea,
 .pc-primary-button,
 .pc-secondary-button,
-.pc-delete-button {
+.pc-delete-button,
+.pc-back-button {
   width: 100%;
   font: inherit;
 }
@@ -142,7 +163,8 @@ body {
 
 .pc-primary-button,
 .pc-secondary-button,
-.pc-delete-button {
+.pc-delete-button,
+.pc-back-button {
   border: 0;
   border-radius: 14px;
   padding: 11px 14px;
@@ -159,11 +181,13 @@ body {
 
 .pc-primary-button:hover,
 .pc-secondary-button:hover,
-.pc-delete-button:hover {
+.pc-delete-button:hover,
+.pc-back-button:hover {
   transform: translateY(-1px);
 }
 
-.pc-primary-button:hover {
+.pc-primary-button:hover,
+.pc-back-button:hover {
   background: var(--pc-accent-hover);
 }
 
@@ -182,14 +206,15 @@ body {
   color: var(--pc-danger);
 }
 
-.pc-popup-list-section {
+.pc-popup-list-section,
+.pc-compare-view {
   display: flex;
   flex-direction: column;
   gap: 12px;
 }
 
 .pc-section-heading h2 {
-  margin: 0;
+  margin: 0 0 4px;
   font-size: 16px;
 }
 
@@ -223,36 +248,66 @@ body {
   padding: 14px;
 }
 
-.pc-prompt-meta {
+.pc-compare-toggle-row {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
+  justify-content: flex-end;
   margin-bottom: 10px;
 }
 
-.pc-platform-tag {
+.pc-compare-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--pc-text-muted);
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.pc-compare-toggle input {
+  accent-color: var(--pc-accent);
+}
+
+.pc-prompt-meta {
+  margin-bottom: 10px;
+}
+
+.pc-platform-tag,
+.pc-version-badge {
   display: inline-flex;
   align-items: center;
   padding: 5px 10px;
   border-radius: 999px;
-  background: var(--pc-accent-soft);
-  color: #8a3f18;
   font-size: 12px;
   font-weight: 700;
 }
 
-.pc-prompt-time {
+.pc-platform-tag {
+  background: var(--pc-accent-soft);
+  color: #8a3f18;
+}
+
+.pc-version-badge {
+  background: #edf3ff;
+  color: #1d4ed8;
+}
+
+.pc-prompt-time,
+.pc-compare-time {
   color: var(--pc-text-muted);
   font-size: 12px;
 }
 
-.pc-prompt-content {
-  margin: 0 0 12px;
+.pc-prompt-content,
+.pc-compare-content {
   color: var(--pc-text);
   font-size: 13px;
   line-height: 1.55;
   word-break: break-word;
+}
+
+.pc-prompt-content {
+  margin: 0 0 12px;
 }
 
 .pc-prompt-actions {
@@ -268,4 +323,57 @@ body {
 .pc-delete-button {
   background: var(--pc-danger-soft);
   color: var(--pc-danger);
+}
+
+.pc-compare-bar {
+  position: sticky;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 16px;
+  padding: 12px 14px;
+}
+
+.pc-compare-summary {
+  color: var(--pc-text);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.pc-compare-bar .pc-primary-button {
+  width: auto;
+  min-width: 150px;
+}
+
+.pc-back-button {
+  width: auto;
+  min-width: 96px;
+  background: var(--pc-accent);
+  color: #ffffff;
+}
+
+.pc-compare-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.pc-compare-card {
+  padding: 16px;
+}
+
+.pc-compare-card-header {
+  margin-bottom: 12px;
+}
+
+.pc-compare-time {
+  margin: 0 0 14px;
+}
+
+.pc-compare-content {
+  margin: 0;
+  white-space: pre-wrap;
+  font-family: inherit;
 }
