@@ -217,7 +217,12 @@ function renderListView() {
           <h3>Saved Prompts</h3>
           <p>Select up to two prompts to compare.</p>
         </div>
-        <span class="pc-count">${state.prompts.length}</span>
+        <div class="pc-list-head-actions">
+          <button class="pc-head-button" id="pc-open-workspace-button" type="button">
+            Open Workspace
+          </button>
+          <span class="pc-count">${state.prompts.length}</span>
+        </div>
       </div>
       ${
         state.prompts.length
@@ -273,6 +278,9 @@ function bindEvents() {
   });
 
   host.querySelector("#pc-save-button")?.addEventListener("click", savePrompt);
+  host.querySelector("#pc-open-workspace-button")?.addEventListener("click", () => {
+    chrome.runtime.sendMessage({ type: "PC_OPEN_WORKSPACE" });
+  });
   host.querySelector("#pc-platform")?.addEventListener("change", toggleCustomPlatform);
   host.querySelector("#pc-category")?.addEventListener("change", toggleCustomCategory);
   host.querySelector("#pc-compare-button")?.addEventListener("click", () => {

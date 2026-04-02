@@ -10,7 +10,7 @@
 
 ## Current Version
 
-- `V1.2.1`
+- `V1.3.2`
 
 ## Product Goal
 
@@ -41,6 +41,8 @@ The current main interaction is a left sidebar injected into the active webpage.
 - Auto-drop the oldest selected prompt when selecting a third one
 - Compare view with `Version A` and `Version B`
 - Saved sidebar width persistence
+- Open Workspace entry from the sidebar
+- Dedicated workspace page for prompt search and comparison
 
 ## Data Model
 
@@ -58,6 +60,8 @@ Each saved prompt record includes:
 - `manifest.json`: extension configuration, permissions, content script registration
 - `background.js`: toolbar icon click handling
 - `content.js`: sidebar UI, state, storage, compare logic, resize logic
+- `workspace.html`: dedicated prompt management page
+- `workspace.js`: workspace search, filter, list, and compare logic
 - `styles.css`: sidebar styles
 
 ## Version History
@@ -94,6 +98,23 @@ Each saved prompt record includes:
 ### V1.2.1
 
 - Added custom input support for `Platform` when `Other` is selected
+
+### V1.3.0
+
+- Added `Open Workspace` entry in the sidebar
+- Added a dedicated workspace page opened in a new browser tab
+- Added search and category filter in the workspace
+- Added left prompt list plus right dual-version compare layout
+- Compare panels show metadata and full prompt content
+
+### V1.3.1
+
+- Added a top `← Back` button in the workspace header
+- Kept the workspace layout unchanged
+
+### V1.3.2
+
+- Fixed `← Back` so it returns to the source page instead of only closing the workspace tab
 
 ## Current Input Fields
 
